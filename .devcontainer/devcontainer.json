@@ -1,0 +1,26 @@
+{
+    "name": "boardgame-management-system",
+    "dockerComposeFile": "../docker-compose.yml",
+    "service": "app",
+    "workspaceFolder": "/workspace",
+
+    // コンテナ作成後に自動で実行するコマンド
+    // （プロジェクト作成後は npm install などに変更します）
+    // "postCreateCommand": "npm install",
+
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "dbarumer.vscode-eslint",
+                "esbenp.prettier-vscode",
+                "bradlc.vscode-tailwindcss",
+                "Prisma.prisma",
+                "yoavbls.pretty-ts-errors"
+            ],
+            "settings": {
+                "editor.formatOnSave": true,
+                "editor.defaultFormatter": "esbenp.prettier-vscode"
+            }
+        }
+    }
+}

@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+  app:
+    # Microsoft公式のNode.js開発用のイメージ（gitやzshなどが最初から入っていて便利）
+    image: mcr.microsoft.com/devcontainers/typescript-node:1-22-bookworm
+    volumes:
+      # カレントディレクトリ
+      - .:/workspace:cached
+    # コンテナを起動しっぱなしにする（VSCodeが接続するため）
+    command: sleep infinity
+    # Next.js のデフォルトポート
+    ports:
+      - "3000:3000"
+    # DBとの通信用環境変数
+    environment:
+      - DATABASE_URL=postgresql://postgres:password@db:5432/boardgame_local
+    working_dir: /workspace
+
+  db:
+    image: postgres:18-alpine
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: boardgame_local
+    ports:
+      - "5432:5432"
+
+volumes:
+  postgres_data:
