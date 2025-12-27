@@ -12,3 +12,149 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+// ==============================================
+// 1. 認証・ユーザー管理（NextAuth.js + 権限）
+// ==============================================
+
+model User {
+  id            String  @id @default(cuid())
+  name          String?
+  email         String? @unique
+  emailVerified DateTime?
+  image         String?
+  isAdmin       Boolean @default(false) // 管理者フラグ
+  accounts      Account[]
+  sessions      Session[]
+
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expired_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user              User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id            String  @id @default(cuid())
+  sessionToken  String  @unique
+  userId        String
+  expires       DateTime
+  user          User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier  String
+  token       String  @unique
+  expires     DateTime
+
+  @@unique([identifier, token])
+}
+
+// ==============================================
+// 2. ボドゲ管理（所有データ）
+// ==============================================
+
+model BoardGame {
+  id          Int @id @default(autoincrement())
+  name        String
+  minPlayers  Int
+  maxPlayers  Int
+  playTime    Int
+  location    String? // 保管場所
+  hasSleeves  Boolean @default(false)
+  isFavorite  Boolean @default(false)
+  isOwned     Boolean @default(false)
+  bggUrl      String?
+  janCode     String?
+
+  // スリーブ情報との紐づけ（1対多）
+  requiredSleeves GameSleeve[]
+  // プレイログとの紐づけ
+  playlogs        PlayLog[]
+
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+// ==============================================
+// 3. 在庫管理（スリーブ・モビロンバンド）
+// ==============================================
+
+model Sleeve {
+  id            Int @id @default(autoincrement())
+  name          String
+  productName   String
+  width         Float
+  height        Float
+  currentStock  Int @default(0)
+
+  gameUsing     GameSleeve[]
+}
+
+model GameSleeve {
+  id            Int @id @default(autoincrement())
+  gameId        Int
+  sleeveSizeId  Int
+  quantity      Int
+
+  game          BoardGame @relation(fields: [gameId], references: [id])
+  sleeveSize    Sleeve  @relation(fields: [sleeveSizeId], references: [id])
+}
+
+model MobilonBand {
+  id            Int @id @default(autoincrement())
+  size          String
+  color         String?
+  currentStock  Int @default(0)
+}
+
+// ==============================================
+// 4. プレイログ・メンバー管理
+// ==============================================
+
+model Member {
+  id        Int @id @default(autoincrement())
+  name      String  @unique
+  playLogs  PlayLog[]
+}
+
+model PlayLog {
+  id        Int @id @default(autoincrement())
+  gameId    Int
+  playDate  DateTime  @default(now())
+  notes     String?
+
+  game      BoardGame @relation(fields: [gameId], references: [id])
+  players   Member[]
+}
+
+// ==============================================
+// 5. ウィッシュリスト（管理者のみ）
+// ==============================================
+
+model Wishlist {
+  id          Int @id @default(autoincrement())
+  name        String
+  priority    Int @default(3)
+  bggUrl      String?
+  notes       String?
+
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
