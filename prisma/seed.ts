@@ -33,32 +33,28 @@ async function main() {
 
   // 2. 一般的なスリーブサイズの登録
   const sleeeveSizes = [
-    { name: "スタンダード（TCG）", productName: "test", width: 63, height: 88 },
+    { name: "スタンダード（TCG）", width: 63, height: 88 },
     {
       name: "ボードゲーム・ユーロ",
-      productName: "test",
       width: 59,
       height: 92,
     },
     {
       name: "ボードゲーム・ミニユーロ",
-      productName: "test",
       width: 44,
       height: 68,
     },
-    { name: "スクエア（中）", productName: "test", width: 70, height: 70 },
+    { name: "スクエア（中）", width: 70, height: 70 },
   ];
 
   for (const s of sleeeveSizes) {
-    await prisma.sleeve.upsert({
+    await prisma.sleeveSize.upsert({
       where: { id: sleeeveSizes.indexOf(s) + 1 },
       update: {},
       create: {
         name: s.name,
-        productName: s.productName,
         width: s.width,
         height: s.height,
-        currentStock: 0,
       },
     });
   }

@@ -1,114 +1,111 @@
+import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
-import { redirect } from "next/navigation";
 import Link from "next/link";
 
 export default async function NewSleevePage() {
-  // 管理者チェック
   const session = await auth();
   if (!session?.user?.isAdmin) redirect("/");
 
-  // 保存処理（Server Action）
+  // 1. 選択肢となるサイズ規格一覧を取得
+  const sleeveSizes = await prisma.sleeveSize.findMany({
+    orderBy: [{ width: "asc" }, { height: "asc" }],
+  });
+
+  // 2. 保存処理 (Server Action)
   async function createSleeve(formData: FormData) {
     "use server";
 
-    const name = formData.get("name") as string;
     const productName = formData.get("productName") as string;
-    const width = parseFloat(formData.get("width") as string);
-    const height = parseFloat(formData.get("height") as string);
-    const currentStock = parseFloat(formData.get("currentStock") as string);
+    const sizeId = parseInt(formData.get("sizeId") as string);
+    const currentStock = parseInt(formData.get("currentStock") as string);
 
     await prisma.sleeve.create({
-      data: { name, productName, width, height, currentStock },
+      data: {
+        productName,
+        sizeId,
+        currentStock,
+      },
     });
 
     redirect("/admin/sleeves");
   }
 
-  // 画面
   return (
     <div className="max-w-2xl mx-auto p-8">
       <div className="mb-6">
         <Link href="/admin/sleeves" className="text-blue-600 hover:underline">
-          ← 一覧に戻る
+          ← 製品一覧に戻る
         </Link>
-        <h1 className="text-2xl font-bold mt-2">スリーブ新規登録</h1>
+        <h1 className="text-2xl font-bold mt-2 text-gray-800">
+          スリーブ製品登録
+        </h1>
       </div>
 
       <form
         action={createSleeve}
-        className="space-y-4 bg-white p-6 shadow rounded-lg"
+        className="space-y-6 bg-white p-6 shadow-md rounded-xl border border-gray-100"
       >
         <div>
           <label className="block text-sm font-medium text-gray-700">
-            スリーブサイズ名
-          </label>
-          <input
-            name="name"
-            type="text"
-            required
-            placeholder="例：ユーロサイズ"
-            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            スリーブ名称
+            製品名（ブランド・シリーズ名）
           </label>
           <input
             name="productName"
             type="text"
             required
-            placeholder="例：ホビーベース ユーロサイズ"
-            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+            placeholder="例：ホビーベース プレミアム ユーロサイズ"
+            className="mt-1 block w-full border border-gray-300 rounded-md p-2 shadow-sm focus:ring-blue-500 focus:border-blue-500"
           />
-        </div>
-
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              横幅 (mm)
-            </label>
-            <input
-              name="width"
-              type="number"
-              step="0.1"
-              required
-              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              縦幅 (mm)
-            </label>
-            <input
-              name="height"
-              type="number"
-              step="0.1"
-              required
-              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-            />
-          </div>
         </div>
 
         <div>
           <label className="block text-sm font-medium text-gray-700">
-            在庫枚数
+            サイズ規格
+          </label>
+          <select
+            name="sizeId"
+            required
+            className="mt-1 block w-full border border-gray-300 rounded-md p-2 shadow-sm bg-gray-50"
+          >
+            <option value="">規格を選択してください</option>
+            {sleeveSizes.map((size) => (
+              <option key={size.id} value={size.id}>
+                {size.name} ({size.width.toFixed(1)} × {size.height.toFixed(1)}{" "}
+                mm)
+              </option>
+            ))}
+          </select>
+          {sleeveSizes.length === 0 && (
+            <p className="mt-2 text-sm text-red-500">
+              規格が登録されていません。
+              <Link href="/admin/sleeve-sizes/new" className="underline">
+                先に規格を作成してください
+              </Link>
+              。
+            </p>
+          )}
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700">
+            現在の在庫数（枚）
           </label>
           <input
-            name="quantity"
+            name="currentStock"
             type="number"
             required
             defaultValue="50"
-            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+            className="mt-1 block w-full border border-gray-300 rounded-md p-2 shadow-sm"
           />
         </div>
 
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition"
+          disabled={sleeveSizes.length === 0}
+          className="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 transition disabled:bg-gray-400"
         >
-          登録する
+          製品を登録する
         </button>
       </form>
     </div>

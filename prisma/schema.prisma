@@ -96,25 +96,34 @@ model BoardGame {
 // 3. 在庫管理（スリーブ・モビロンバンド）
 // ==============================================
 
-model Sleeve {
-  id            Int @id @default(autoincrement())
-  name          String
-  productName   String
-  width         Float
-  height        Float
-  currentStock  Int @default(0)
+model SleeveSize {
+  id     Int    @id @default(autoincrement())
+  name   String // 例: ユーロサイズ、TCGサイズ
+  width  Float
+  height Float
 
-  gameUsing     GameSleeve[]
+  // このサイズに適合する製品（Sleeve）たち
+  sleeves      Sleeve[]
+  // このサイズを必要とするゲームたち
+  gameSleeves  GameSleeve[]
+}
+
+model Sleeve {
+  id           Int    @id @default(autoincrement())
+  productName  String // 例: ホビーベース プレミアム ユーロ
+  currentStock Int    @default(0)
+  sizeId       Int
+  size         SleeveSize @relation(fields: [sizeId], references: [id])
 }
 
 model GameSleeve {
-  id            Int @id @default(autoincrement())
-  gameId        Int
-  sleeveSizeId  Int
-  quantity      Int
+  id           Int @id @default(autoincrement())
+  gameId       Int
+  sleeveSizeId Int
+  quantity     Int
 
-  game          BoardGame @relation(fields: [gameId], references: [id])
-  sleeveSize    Sleeve  @relation(fields: [sleeveSizeId], references: [id])
+  game       BoardGame  @relation(fields: [gameId], references: [id])
+  sleeveSize SleeveSize @relation(fields: [sleeveSizeId], references: [id])
 }
 
 model MobilonBand {

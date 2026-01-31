@@ -38,7 +38,7 @@ export default async function EditQuantityPage({ params }: Props) {
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4">
       <div className="bg-white p-6 rounded-lg shadow-xl w-full max-w-sm">
-        <h2 className="text-xl font-bold mb-4">{sleeve.name}</h2>
+        <h2 className="text-xl font-bold mb-4">{sleeve.productName}</h2>
         <p className="text-sm text-gray-500 mb-6">
           現在の在庫を更新してください。
         </p>
