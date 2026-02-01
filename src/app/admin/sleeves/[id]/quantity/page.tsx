@@ -9,7 +9,6 @@ type Props = {
 export default async function EditQuantityPage({ params }: Props) {
   // パラメータ取得
   const { id } = await params;
-  console.error(`Sleeve id: ${id}`);
   // 管理者チェック
   const session = await auth();
   if (!session?.user?.isAdmin) redirect("/");
