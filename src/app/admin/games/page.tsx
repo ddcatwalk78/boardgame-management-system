@@ -2,6 +2,8 @@ import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
+import ApplySleevesButton from "./_components/ApplySleevesButton";
 
 export default async function BoardGameListPage() {
   // 管理者チェック
@@ -20,6 +22,46 @@ export default async function BoardGameListPage() {
     },
     orderBy: { name: "asc" },
   });
+
+  async function applySleeves(formData: FormData) {
+    "use server";
+    const gameId = Number(formData.get("gameId"));
+
+    // 1. そのゲームに必要なスリーブ設定を再取得
+    const requirements = await prisma.gameSleeve.findMany({
+      where: { gameId },
+    });
+
+    await prisma.$transaction(async (tx) => {
+      // フォームから送られてきた各規格のスリーブ選択を処理
+      for (let i = 0; i < requirements.length; i++) {
+        const productId = Number(formData.get(`sleeveProductId_${i}`));
+        const needed = requirements[i].quantity;
+
+        // 在庫をチェックして減算
+        const product = await tx.sleeve.findUnique({
+          where: { id: productId },
+        });
+        if (!product || product.currentStock < needed) {
+          throw new Error(`製品ID ${productId} の在庫が足りません。`);
+        }
+
+        await tx.sleeve.update({
+          where: { id: productId },
+          data: { currentStock: { decrement: needed } },
+        });
+      }
+
+      // 2. ゲームの状態を「スリーブ済み」に更新
+      await tx.boardGame.update({
+        where: { id: gameId },
+        data: { hasSleeves: true },
+      });
+    });
+
+    revalidatePath("/admin/games");
+    revalidatePath("/admin/sleeves");
+  }
 
   return (
     <div className="p-8 bg-gray-50 min-h-screen">
@@ -52,6 +94,17 @@ export default async function BoardGameListPage() {
             const isConfigured = game.requiredSleeves.length > 0;
             const isAllStocked =
               isConfigured && sleeveStatus.every((s) => s.isOK);
+
+            const buttonRequirements = game.requiredSleeves.map((rs) => ({
+              id: rs.id,
+              sleeveSizeName: rs.sleeveSize.name,
+              quantity: rs.quantity,
+              availableSleeves: rs.sleeveSize.sleeves.map((s) => ({
+                id: s.id,
+                productName: s.productName,
+                currentStock: s.currentStock,
+              })),
+            }));
 
             return (
               <div
@@ -126,6 +179,13 @@ export default async function BoardGameListPage() {
                         <span className="text-[10px] font-normal text-green-500 ml-7">
                           今すぐスリーブを装着できます
                         </span>
+                        {/* 装着確定ボタンを追加 */}
+                        <ApplySleevesButton
+                          gameId={game.id}
+                          gameName={game.name}
+                          requirements={buttonRequirements}
+                          applyAction={applySleeves}
+                        />
                       </div>
                     ) : (
                       // 4. 在庫が足りない場合
