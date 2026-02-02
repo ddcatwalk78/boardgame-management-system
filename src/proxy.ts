@@ -2,7 +2,7 @@ import NextAuth from "next-auth";
 import { authConfig } from "./auth.config";
 
 // ここでは adapter（Prisma）を含まない設定を使う
-export const { auth: middleware } = NextAuth(authConfig);
+export const { auth: proxy } = NextAuth(authConfig);
 
 export const config = {
   // 認証を適用したいパスを指定
