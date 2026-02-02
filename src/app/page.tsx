@@ -92,6 +92,18 @@ export default async function HomePage() {
               </p>
             </div>
           </Link>
+
+          <Link href="/admin/wishlist" className="group">
+            <div className="h-full bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:border-yellow-300 hover:shadow-md transition-all">
+              <div className="text-4xl mb-4">🌠</div>
+              <h2 className="text-xl font-bold text-gray-800 group-hover:text-yellow-500">
+                ウィッシュリスト
+              </h2>
+              <p className="text-sm text-gray-500 mt-2">
+                気になるゲームのメモ。購入したらコレクションへ移動。
+              </p>
+            </div>
+          </Link>
         </div>
       ) : (
         <div className="bg-yellow-50 border border-yellow-100 p-8 rounded-2xl text-center">
