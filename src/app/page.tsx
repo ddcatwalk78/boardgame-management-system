@@ -35,7 +35,7 @@ export default async function HomePage() {
         </div>
       ) : (
         <div>
-          <p>露軍して利用を開始してください。</p>
+          <p>ログインして利用を開始してください。</p>
           <form
             action={async () => {
               "use server";
