@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { auth } from "@/auth";
+import { auth, signIn, signOut } from "@/auth";
 
 export default async function HomePage() {
   const session = await auth();
@@ -15,6 +15,39 @@ export default async function HomePage() {
           ボードゲームの資産管理とスリーブ在庫の最適化
         </p>
       </header>
+
+      {session ? (
+        <div>
+          <p>ようこそ、{session.user?.name} さん！</p>
+          <p>
+            {session.user?.isAdmin ? "👑 管理者権限あり" : "👤 一般ユーザー"}
+          </p>
+          <form
+            action={async () => {
+              "use server";
+              await signOut();
+            }}
+          >
+            <button className="bg-red-500 text-white px-4 py-2 rounded mt-4">
+              ログアウト
+            </button>
+          </form>
+        </div>
+      ) : (
+        <div>
+          <p>露軍して利用を開始してください。</p>
+          <form
+            action={async () => {
+              "use server";
+              await signIn("google");
+            }}
+          >
+            <button className="bg-blue-500 text-white px-4 py-2 rounded mt-4">
+              Googleでログイン
+            </button>
+          </form>
+        </div>
+      )}
 
       {isAdmin ? (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
