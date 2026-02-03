@@ -14,7 +14,8 @@ services:
       - "3000:3000"
     # DBとの通信用環境変数
     environment:
-      - DATABASE_URL=postgresql://postgres:password@db:5432/boardgame_local
+      # - DATABASE_URL=postgresql://postgres:password@db:5432/boardgame_local
+      - TZ=Asia/Tokyo
     working_dir: /workspace
     # Google API Console を使った認証を行うために、
     # Docker コンテナから Google API Console への名前解決ができるようにする
