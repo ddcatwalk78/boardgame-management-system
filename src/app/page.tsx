@@ -7,15 +7,6 @@ export default async function HomePage() {
 
   return (
     <div className="max-w-5xl mx-auto p-8">
-      <header className="mb-12 text-center">
-        <h1 className="text-4xl font-extrabold text-gray-900 mb-4">
-          Board Game Sleeve Manager
-        </h1>
-        <p className="text-gray-600">
-          ボードゲームの資産管理とスリーブ在庫の最適化
-        </p>
-      </header>
-
       {session ? (
         <div>
           <p>ようこそ、{session.user?.name} さん！</p>
