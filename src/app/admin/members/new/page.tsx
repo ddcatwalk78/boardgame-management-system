@@ -1,6 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import Button from "@/components/ui/Button";
+import ActionPageContainer from "@/components/layout/ActionPageContainer";
 
 export default function NewMemberPage() {
   async function createMember(formData: FormData) {
@@ -16,8 +18,14 @@ export default function NewMemberPage() {
   }
 
   return (
-    <div className="max-w-md mx-auto p-8">
-      <h1 className="text-xl font-bold mb-6">新規メンバー登録</h1>
+    <ActionPageContainer
+      title="新規メンバー登録"
+      action={
+        <Link href="/admin/members" className="text-indigo-600 hover:underline">
+          ← 一覧に戻る
+        </Link>
+      }
+    >
       <form action={createMember} className="space-y-4">
         <div>
           <label className="block text-sm font-medium mb-1">名前</label>
@@ -30,12 +38,12 @@ export default function NewMemberPage() {
           />
         </div>
         <div className="flex gap-4">
-          <button
+          <Button
             type="submit"
             className="flex-1 bg-purple-600 text-white py-2 rounded-lg font-bold"
           >
             登録
-          </button>
+          </Button>
           <Link
             href="/admin/members"
             className="flex-1 bg-gray-100 text-center py-2 rounded-lg text-gray-600"
@@ -44,6 +52,6 @@ export default function NewMemberPage() {
           </Link>
         </div>
       </form>
-    </div>
+    </ActionPageContainer>
   );
 }

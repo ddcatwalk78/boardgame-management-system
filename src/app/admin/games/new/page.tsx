@@ -2,6 +2,8 @@ import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
+import ActionPageContainer from "@/components/layout/ActionPageContainer";
+import Button from "@/components/ui/Button";
 
 export default async function NewBoardGamePage() {
   const session = await auth();
@@ -42,16 +44,14 @@ export default async function NewBoardGamePage() {
   }
 
   return (
-    <div className="max-w-3xl mx-auto p-8">
-      <div className="mb-6">
+    <ActionPageContainer
+      title="ボードゲーム新規登録"
+      action={
         <Link href="/admin/games" className="text-indigo-600 hover:underline">
           ← 一覧に戻る
         </Link>
-        <h1 className="text-2xl font-bold mt-2 text-gray-800">
-          ボードゲーム新規登録
-        </h1>
-      </div>
-
+      }
+    >
       <form
         action={createGame}
         className="space-y-6 bg-white p-8 shadow-md rounded-xl border border-gray-100"
@@ -190,13 +190,13 @@ export default async function NewBoardGamePage() {
           </label>
         </section>
 
-        <button
+        <Button
           type="submit"
           className="w-full bg-indigo-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-indigo-700 transition shadow-lg mt-8"
         >
           ボードゲームを登録する
-        </button>
+        </Button>
       </form>
-    </div>
+    </ActionPageContainer>
   );
 }

@@ -1,6 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import Button from "@/components/ui/Button";
+import ActionPageContainer from "@/components/layout/ActionPageContainer";
 
 export default function NewWishlistPage() {
   async function createWishlistGame(formData: FormData) {
@@ -23,19 +25,17 @@ export default function NewWishlistPage() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto p-8">
-      <div className="mb-6">
+    <ActionPageContainer
+      title="欲しいゲームの登録"
+      action={
         <Link
           href="/admin/wishlist"
           className="text-yellow-600 hover:underline"
         >
           ← ウィッシュリストに戻る
         </Link>
-        <h1 className="text-2xl font-bold mt-2 text-gray-800">
-          欲しいゲームの登録
-        </h1>
-      </div>
-
+      }
+    >
       <form
         action={createWishlistGame}
         className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 space-y-6"
@@ -111,13 +111,13 @@ export default function NewWishlistPage() {
           </label>
         </div>
 
-        <button
+        <Button
           type="submit"
           className="w-full bg-yellow-500 text-white font-bold py-3 rounded-lg hover:bg-yellow-600 transition shadow-lg shadow-yellow-100"
         >
           リストに追加する
-        </button>
+        </Button>
       </form>
-    </div>
+    </ActionPageContainer>
   );
 }

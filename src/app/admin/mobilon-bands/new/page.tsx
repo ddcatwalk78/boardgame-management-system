@@ -1,6 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import Button from "@/components/ui/Button";
+import ActionPageContainer from "@/components/layout/ActionPageContainer";
 
 export default function NewMobilonBandPage() {
   async function createBand(formData: FormData) {
@@ -16,17 +18,17 @@ export default function NewMobilonBandPage() {
   }
 
   return (
-    <div className="max-w-xl mx-auto p-8">
-      <div className="mb-6">
+    <ActionPageContainer
+      title="モビロンバンド新規登録"
+      action={
         <Link
           href="/admin/mobilon-bands"
           className="text-pink-600 hover:underline"
         >
           ← 一覧へ戻る
         </Link>
-        <h1 className="text-2xl font-bold mt-2">モビロンバンド新規登録</h1>
-      </div>
-
+      }
+    >
       <form
         action={createBand}
         className="space-y-6 bg-white p-8 rounded-2xl border shadow-sm"
@@ -67,13 +69,13 @@ export default function NewMobilonBandPage() {
             className="w-full border rounded-lg p-2.5 focus:ring-2 focus:ring-pink-500 outline-none"
           />
         </div>
-        <button
+        <Button
           type="submit"
           className="w-full bg-pink-600 text-white py-3 rounded-xl font-bold hover:bg-pink-700 transition shadow-lg shadow-pink-100"
         >
           バンドを登録する
-        </button>
+        </Button>
       </form>
-    </div>
+    </ActionPageContainer>
   );
 }

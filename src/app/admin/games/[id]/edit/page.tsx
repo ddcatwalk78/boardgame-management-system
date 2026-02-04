@@ -3,6 +3,8 @@ import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { revalidatePath } from "next/cache";
+import Button from "@/components/ui/Button";
+import ActionPageContainer from "@/components/layout/ActionPageContainer";
 
 export default async function EditBoardGamePage({
   params,
@@ -48,16 +50,14 @@ export default async function EditBoardGamePage({
   }
 
   return (
-    <div className="max-w-3xl mx-auto p-8">
-      <div className="mb-6">
+    <ActionPageContainer
+      title="ボードゲームの編集"
+      action={
         <Link href="/admin/games" className="text-indigo-600 hover:underline">
           ← 一覧に戻る
         </Link>
-        <h1 className="text-2xl font-bold mt-2 text-gray-800">
-          ボードゲームの編集
-        </h1>
-      </div>
-
+      }
+    >
       <form
         action={updateGame}
         className="space-y-6 bg-white p-8 shadow-md rounded-xl border border-gray-100"
@@ -200,12 +200,12 @@ export default async function EditBoardGamePage({
         </section>
 
         <div className="flex gap-4 mt-8">
-          <button
+          <Button
             type="submit"
             className="flex-1 bg-indigo-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-indigo-700 transition shadow-lg"
           >
             更新する
-          </button>
+          </Button>
           <Link
             href="/admin/games"
             className="flex-1 bg-gray-100 text-gray-600 font-bold py-3 px-4 rounded-lg hover:bg-gray-200 transition text-center"
@@ -214,6 +214,6 @@ export default async function EditBoardGamePage({
           </Link>
         </div>
       </form>
-    </div>
+    </ActionPageContainer>
   );
 }

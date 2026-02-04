@@ -1,6 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import Button from "@/components/ui/Button";
+import ActionPageContainer from "@/components/layout/ActionPageContainer";
 
 export default async function EditPlayLogPage({
   params,
@@ -47,8 +49,14 @@ export default async function EditPlayLogPage({
   const selectedMemberIds = new Set(log.players.map((p) => p.id));
 
   return (
-    <div className="max-w-2xl mx-auto p-8">
-      <h1 className="text-2xl font-bold mb-6">プレイ記録の編集</h1>
+    <ActionPageContainer
+      title="プレイ記録の編集"
+      action={
+        <Link href="/admin/play-logs" className="text-pink-600 hover:underline">
+          ← 一覧へ戻る
+        </Link>
+      }
+    >
       <form
         action={updateLog}
         className="bg-white p-6 rounded-xl shadow-sm border space-y-6"
@@ -112,12 +120,12 @@ export default async function EditPlayLogPage({
         </div>
 
         <div className="flex gap-4">
-          <button
+          <Button
             type="submit"
             className="flex-1 bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700"
           >
             更新する
-          </button>
+          </Button>
           <Link
             href="/admin/play-logs"
             className="flex-1 bg-gray-100 text-gray-600 py-3 rounded-lg font-bold text-center hover:bg-gray-200"
@@ -126,6 +134,6 @@ export default async function EditPlayLogPage({
           </Link>
         </div>
       </form>
-    </div>
+    </ActionPageContainer>
   );
 }

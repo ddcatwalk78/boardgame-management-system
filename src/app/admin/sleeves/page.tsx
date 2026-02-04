@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import Link from "next/link";
 import DeleteSleeveButton from "./_components/DeleteSleeveButton";
+import PageContainer from "@/components/layout/PageContainer";
 
 export default async function AdminSleevePage() {
   // 表示用データ取得
@@ -27,17 +28,17 @@ export default async function AdminSleevePage() {
 
   // 画面
   return (
-    <div className="p-8">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">スリーブ在庫管理</h1>
+    <PageContainer
+      title="スリーブ在庫管理"
+      action={
         <Link
           href="/admin/sleeves/new"
           className="bg-blue-600 text-white px-4 py-2 rounded"
         >
           + 新規登録
         </Link>
-      </div>
-
+      }
+    >
       <table className="min-w-full bg-white border">
         <thead>
           <tr className="bg-gray-100 border-b">
@@ -88,6 +89,6 @@ export default async function AdminSleevePage() {
           ))}
         </tbody>
       </table>
-    </div>
+    </PageContainer>
   );
 }

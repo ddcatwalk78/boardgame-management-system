@@ -3,6 +3,8 @@ import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
 import Link from "next/link";
 import { revalidatePath } from "next/cache";
+import Button from "@/components/ui/Button";
+import ActionPageContainer from "@/components/layout/ActionPageContainer";
 
 export default async function GameSleeveConfigPage({
   params,
@@ -59,19 +61,14 @@ export default async function GameSleeveConfigPage({
   }
 
   return (
-    <div className="max-w-5xl mx-auto p-8">
-      <div className="mb-8">
+    <ActionPageContainer
+      title={`${game.name} の必要スリーブ`}
+      action={
         <Link href="/admin/games" className="text-indigo-600 hover:underline">
           ← ゲーム一覧に戻る
         </Link>
-        <h1 className="text-3xl font-bold mt-2 text-gray-800">
-          {game.name} の必要スリーブ
-        </h1>
-        <p className="text-gray-500">
-          このゲームで使用するカードのサイズと枚数を設定します。
-        </p>
-      </div>
-
+      }
+    >
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* 左側：追加フォーム */}
         <div className="lg:col-span-1">
@@ -113,12 +110,12 @@ export default async function GameSleeveConfigPage({
                   placeholder="例: 54"
                 />
               </div>
-              <button
+              <Button
                 type="submit"
                 className="w-full bg-indigo-600 text-white py-2 rounded-lg font-bold hover:bg-indigo-700 transition shadow-sm"
               >
                 リストに追加
-              </button>
+              </Button>
             </div>
           </form>
         </div>
@@ -160,12 +157,12 @@ export default async function GameSleeveConfigPage({
                     <td className="p-4 text-right">
                       <form action={removeSleeveRequirement}>
                         <input type="hidden" name="id" value={rs.id} />
-                        <button
+                        <Button
                           type="submit"
                           className="text-red-400 hover:text-red-600 text-sm font-medium transition"
                         >
                           削除
-                        </button>
+                        </Button>
                       </form>
                     </td>
                   </tr>
@@ -183,6 +180,6 @@ export default async function GameSleeveConfigPage({
           </div>
         </div>
       </div>
-    </div>
+    </ActionPageContainer>
   );
 }

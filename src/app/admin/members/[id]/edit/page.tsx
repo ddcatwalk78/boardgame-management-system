@@ -1,6 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import Button from "@/components/ui/Button";
+import ActionPageContainer from "@/components/layout/ActionPageContainer";
 
 export default async function EditMemberPage({
   params,
@@ -21,8 +23,14 @@ export default async function EditMemberPage({
   }
 
   return (
-    <div className="max-w-md mx-auto p-8">
-      <h1 className="text-xl font-bold mb-6">メンバー編集</h1>
+    <ActionPageContainer
+      title="メンバー編集"
+      action={
+        <Link href="/admin/members" className="text-indigo-600 hover:underline">
+          ← 一覧に戻る
+        </Link>
+      }
+    >
       <form action={updateMember} className="space-y-4">
         <input
           name="name"
@@ -32,12 +40,12 @@ export default async function EditMemberPage({
           className="w-full border rounded p-2"
         />
         <div className="flex gap-4">
-          <button
+          <Button
             type="submit"
             className="flex-1 bg-purple-600 text-white py-2 rounded-lg font-bold"
           >
             更新
-          </button>
+          </Button>
           <Link
             href="/admin/members"
             className="flex-1 bg-gray-100 text-center py-2 rounded-lg text-gray-600"
@@ -46,6 +54,6 @@ export default async function EditMemberPage({
           </Link>
         </div>
       </form>
-    </div>
+    </ActionPageContainer>
   );
 }

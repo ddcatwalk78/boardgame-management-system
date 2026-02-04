@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { revalidatePath } from "next/cache";
 import MarkAsOwnedButton from "./_components/MarkAsOwnedButton";
+import PageContainer from "@/components/layout/PageContainer";
 
 export default async function WishlistPage() {
   const session = await auth();
@@ -31,20 +32,17 @@ export default async function WishlistPage() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-8">
-      <div className="flex justify-between items-center mb-8">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-800">ウィッシュリスト</h1>
-          <p className="text-sm text-gray-500">購入検討中のボードゲーム一覧</p>
-        </div>
+    <PageContainer
+      title="ウィッシュリスト"
+      action={
         <Link
           href="/admin/wishlist/new"
           className="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition shadow-sm"
         >
           ＋ 欲しいゲームを追加
         </Link>
-      </div>
-
+      }
+    >
       <div className="grid gap-4">
         {games.map((game) => (
           <div
@@ -109,6 +107,6 @@ export default async function WishlistPage() {
           </div>
         )}
       </div>
-    </div>
+    </PageContainer>
   );
 }

@@ -2,6 +2,8 @@ import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import PageContainer from "@/components/layout/PageContainer";
+import Button from "@/components/ui/Button";
 
 export default async function MemberListPage() {
   const session = await auth();
@@ -13,17 +15,14 @@ export default async function MemberListPage() {
   });
 
   return (
-    <div className="max-w-3xl mx-auto p-8">
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-2xl font-bold text-gray-800">メンバー管理</h1>
-        <Link
-          href="/admin/members/new"
-          className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition"
-        >
-          ＋ メンバー登録
+    <PageContainer
+      title="メンバー管理"
+      action={
+        <Link href="/admin/members/new">
+          <Button variant="primary">＋ メンバー登録</Button>
         </Link>
-      </div>
-
+      }
+    >
       <div className="bg-white rounded-xl shadow-sm border overflow-hidden">
         <table className="w-full text-left">
           <thead className="bg-gray-50 border-b">
@@ -57,6 +56,6 @@ export default async function MemberListPage() {
           </tbody>
         </table>
       </div>
-    </div>
+    </PageContainer>
   );
 }

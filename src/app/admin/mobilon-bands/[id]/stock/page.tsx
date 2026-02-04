@@ -1,6 +1,9 @@
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
+import Button from "@/components/ui/Button";
+import ActionPageContainer from "@/components/layout/ActionPageContainer";
+import Link from "next/link";
 
 export default async function MobilonBandStockPage({
   params,
@@ -24,13 +27,20 @@ export default async function MobilonBandStockPage({
   }
 
   return (
-    <div className="max-w-md mx-auto p-8 pt-20 text-center">
-      <div className="mb-8">
-        <h1 className="text-3xl font-black text-gray-900">在庫更新</h1>
-        <p className="text-gray-500 mt-2">
-          サイズ: {band.size} / {band.color || "色指定なし"}
-        </p>
-      </div>
+    <ActionPageContainer
+      title="在庫更新"
+      action={
+        <Link
+          href="/admin/mobilon-bands"
+          className="text-indigo-600 hover:underline"
+        >
+          ← 一覧に戻る
+        </Link>
+      }
+    >
+      <p className="text-gray-500 mt-2">
+        サイズ: {band.size} / {band.color || "色指定なし"}
+      </p>
 
       <form
         action={updateStock}
@@ -45,13 +55,13 @@ export default async function MobilonBandStockPage({
             className="text-6xl w-full text-center border-b-4 border-pink-500 pb-4 font-mono font-bold focus:outline-none text-gray-800"
           />
         </div>
-        <button
+        <Button
           type="submit"
           className="w-full bg-pink-600 text-white py-4 rounded-2xl font-bold text-lg hover:bg-pink-700 transition-all active:scale-95 shadow-lg shadow-pink-200"
         >
           保存する
-        </button>
+        </Button>
       </form>
-    </div>
+    </ActionPageContainer>
   );
 }

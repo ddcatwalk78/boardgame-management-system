@@ -1,4 +1,7 @@
+import ActionPageContainer from "@/components/layout/ActionPageContainer";
+import Button from "@/components/ui/Button";
 import { prisma } from "@/lib/prisma";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 
 export default async function NewPlayLogPage() {
@@ -29,8 +32,14 @@ export default async function NewPlayLogPage() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto p-8">
-      <h1 className="text-2xl font-bold mb-6">プレイ記録の追加</h1>
+    <ActionPageContainer
+      title="プレイ記録の追加"
+      action={
+        <Link href="/admin/play-logs" className="text-pink-600 hover:underline">
+          ← 一覧へ戻る
+        </Link>
+      }
+    >
       <form
         action={createLog}
         className="bg-white p-6 rounded-xl shadow-sm border space-y-6"
@@ -98,13 +107,13 @@ export default async function NewPlayLogPage() {
           ></textarea>
         </div>
 
-        <button
+        <Button
           type="submit"
           className="w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700"
         >
           記録する
-        </button>
+        </Button>
       </form>
-    </div>
+    </ActionPageContainer>
   );
 }

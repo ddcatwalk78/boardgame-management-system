@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import PageContainer from "@/components/layout/PageContainer";
 
 export default async function PlayLogListPage() {
   const session = await auth();
@@ -16,17 +17,17 @@ export default async function PlayLogListPage() {
   });
 
   return (
-    <div className="max-w-5xl mx-auto p-8">
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-2xl font-bold text-gray-800">プレイログ</h1>
+    <PageContainer
+      title="プレイログ"
+      action={
         <Link
           href="/admin/play-logs/new"
           className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
         >
           ＋ 記録をつける
         </Link>
-      </div>
-
+      }
+    >
       <div className="space-y-4">
         {logs.map((log) => (
           <div
@@ -82,6 +83,6 @@ export default async function PlayLogListPage() {
           </p>
         )}
       </div>
-    </div>
+    </PageContainer>
   );
 }

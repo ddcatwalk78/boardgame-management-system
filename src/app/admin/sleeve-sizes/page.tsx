@@ -4,6 +4,7 @@ import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import DeleteSleeveSizeButton from "./_components/DeleteSleeveSizeButton";
+import PageContainer from "@/components/layout/PageContainer";
 
 export default async function SleeveSizeListPage() {
   const session = await auth();
@@ -31,19 +32,17 @@ export default async function SleeveSizeListPage() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-8">
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-2xl font-bold text-gray-800">
-          スリーブ規格マスター
-        </h1>
+    <PageContainer
+      title="スリーブ規格マスター"
+      action={
         <Link
           href="/admin/sleeve-sizes/new"
           className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
         >
           ＋ 新規規格
         </Link>
-      </div>
-
+      }
+    >
       <div className="bg-white shadow rounded-lg overflow-hidden border border-gray-200">
         <table className="w-full text-left">
           <thead className="bg-gray-50 border-b">
@@ -89,6 +88,6 @@ export default async function SleeveSizeListPage() {
           </tbody>
         </table>
       </div>
-    </div>
+    </PageContainer>
   );
 }

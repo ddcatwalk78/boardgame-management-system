@@ -1,5 +1,7 @@
 "use client";
 
+import Button from "@/components/ui/Button";
+
 type Props = {
   gameId: number;
   gameName: string;
@@ -57,7 +59,7 @@ export default function ApplySleevesButton({
         </div>
       ))}
 
-      <button
+      <Button
         type="submit"
         className="mt-2 w-full bg-green-600 text-white text-xs font-bold py-2 rounded hover:bg-green-700 transition"
         onClick={(e) => {
@@ -71,7 +73,7 @@ export default function ApplySleevesButton({
         }}
       >
         装着を確定する
-      </button>
+      </Button>
     </form>
   );
 }

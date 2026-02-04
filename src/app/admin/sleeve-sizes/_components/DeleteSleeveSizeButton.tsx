@@ -1,5 +1,7 @@
 "use client";
 
+import Button from "@/components/ui/Button";
+
 type Props = {
   id: number;
   deleteAction: (formData: FormData) => Promise<void>;
@@ -20,9 +22,9 @@ export default function DeleteSleeveSizeButton({ id, deleteAction }: Props) {
       }}
     >
       <input type="hidden" name="id" value={id} />
-      <button type="submit" className="text-red-600 text-sm hover:underline">
+      <Button type="submit" className="text-red-600 text-sm hover:underline">
         削除
-      </button>
+      </Button>
     </form>
   );
 }

@@ -2,6 +2,8 @@ import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
+import Button from "@/components/ui/Button";
+import ActionPageContainer from "@/components/layout/ActionPageContainer";
 
 export default async function NewSleevePage() {
   const session = await auth();
@@ -32,16 +34,14 @@ export default async function NewSleevePage() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto p-8">
-      <div className="mb-6">
+    <ActionPageContainer
+      title="スリーブ製品登録"
+      action={
         <Link href="/admin/sleeves" className="text-blue-600 hover:underline">
           ← 製品一覧に戻る
         </Link>
-        <h1 className="text-2xl font-bold mt-2 text-gray-800">
-          スリーブ製品登録
-        </h1>
-      </div>
-
+      }
+    >
       <form
         action={createSleeve}
         className="space-y-6 bg-white p-6 shadow-md rounded-xl border border-gray-100"
@@ -100,14 +100,14 @@ export default async function NewSleevePage() {
           />
         </div>
 
-        <button
+        <Button
           type="submit"
           disabled={sleeveSizes.length === 0}
           className="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 transition disabled:bg-gray-400"
         >
           製品を登録する
-        </button>
+        </Button>
       </form>
-    </div>
+    </ActionPageContainer>
   );
 }

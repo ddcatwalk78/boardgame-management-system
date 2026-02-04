@@ -1,4 +1,7 @@
-"use client"; // これで onSubmit が使えるようになります
+"use client";
+import Button from "@/components/ui/Button";
+
+// これで onSubmit が使えるようになります
 
 type Props = {
   id: number;
@@ -16,12 +19,12 @@ export default function DeleteSleeveButton({ id, deleteAction }: Props) {
       }}
     >
       <input type="hidden" name="id" value={id} />
-      <button
+      <Button
         type="submit"
         className="bg-red-50 text-red-600 px-3 py-1 rounded text-sm hover:bg-red-100 border border-red-200"
       >
         削除
-      </button>
+      </Button>
     </form>
   );
 }

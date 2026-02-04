@@ -2,6 +2,8 @@ import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
+import Button from "@/components/ui/Button";
+import ActionPageContainer from "@/components/layout/ActionPageContainer";
 
 export default async function NewSleeveSizePage() {
   const session = await auth();
@@ -22,19 +24,17 @@ export default async function NewSleeveSizePage() {
   }
 
   return (
-    <div className="max-w-xl mx-auto p-8">
-      <div className="mb-6">
+    <ActionPageContainer
+      title="スリーブ規格（サイズ）登録"
+      action={
         <Link
           href="/admin/sleeve-sizes"
           className="text-gray-500 hover:underline"
         >
           ← サイズ一覧に戻る
         </Link>
-        <h1 className="text-2xl font-bold mt-2 text-gray-800">
-          スリーブ規格（サイズ）登録
-        </h1>
-      </div>
-
+      }
+    >
       <form
         action={createSleeveSize}
         className="space-y-6 bg-white p-6 shadow-md rounded-xl border border-gray-100"
@@ -81,13 +81,13 @@ export default async function NewSleeveSizePage() {
           </div>
         </div>
 
-        <button
+        <Button
           type="submit"
           className="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 transition"
         >
           規格を保存する
-        </button>
+        </Button>
       </form>
-    </div>
+    </ActionPageContainer>
   );
 }

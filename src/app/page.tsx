@@ -1,12 +1,14 @@
 import Link from "next/link";
 import { auth, signIn, signOut } from "@/auth";
+import PageContainer from "@/components/layout/PageContainer";
+import Button from "@/components/ui/Button";
 
 export default async function HomePage() {
   const session = await auth();
   const isAdmin = session?.user?.isAdmin;
 
   return (
-    <div className="max-w-5xl mx-auto p-8">
+    <PageContainer>
       {session ? (
         <div>
           <p>ようこそ、{session.user?.name} さん！</p>
@@ -19,9 +21,9 @@ export default async function HomePage() {
               await signOut();
             }}
           >
-            <button className="bg-red-500 text-white px-4 py-2 rounded mt-4">
+            <Button className="bg-red-500 text-white px-4 py-2 rounded mt-4">
               ログアウト
-            </button>
+            </Button>
           </form>
         </div>
       ) : (
@@ -33,9 +35,9 @@ export default async function HomePage() {
               await signIn("google");
             }}
           >
-            <button className="bg-blue-500 text-white px-4 py-2 rounded mt-4">
+            <Button className="bg-blue-500 text-white px-4 py-2 rounded mt-4">
               Googleでログイン
-            </button>
+            </Button>
           </form>
         </div>
       )}
@@ -136,6 +138,6 @@ export default async function HomePage() {
           </p>
         </div>
       )}
-    </div>
+    </PageContainer>
   );
 }

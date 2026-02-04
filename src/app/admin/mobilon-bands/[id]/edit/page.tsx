@@ -1,6 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import Button from "@/components/ui/Button";
+import ActionPageContainer from "@/components/layout/ActionPageContainer";
 
 export default async function EditMobilonBandPage({
   params,
@@ -26,8 +28,17 @@ export default async function EditMobilonBandPage({
   }
 
   return (
-    <div className="max-w-xl mx-auto p-8">
-      <h1 className="text-2xl font-bold mb-6">バンド詳細の編集</h1>
+    <ActionPageContainer
+      title="バンド詳細の編集"
+      action={
+        <Link
+          href="/admin/mobilon-bands"
+          className="text-indigo-600 hover:underline"
+        >
+          ← 一覧に戻る
+        </Link>
+      }
+    >
       <form
         action={updateBand}
         className="space-y-6 bg-white p-8 rounded-2xl border shadow-sm"
@@ -56,12 +67,12 @@ export default async function EditMobilonBandPage({
           />
         </div>
         <div className="flex gap-4">
-          <button
+          <Button
             type="submit"
             className="flex-1 bg-gray-900 text-white py-3 rounded-xl font-bold hover:bg-black transition"
           >
             更新を保存
-          </button>
+          </Button>
           <Link
             href="/admin/mobilon-bands"
             className="flex-1 bg-gray-100 text-gray-600 py-3 rounded-xl font-bold text-center hover:bg-gray-200 transition"
@@ -70,6 +81,6 @@ export default async function EditMobilonBandPage({
           </Link>
         </div>
       </form>
-    </div>
+    </ActionPageContainer>
   );
 }
