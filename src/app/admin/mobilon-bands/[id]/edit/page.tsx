@@ -66,20 +66,9 @@ export default async function EditMobilonBandPage({
             className="w-full border rounded-lg p-2.5 focus:ring-2 focus:ring-pink-500 outline-none"
           />
         </div>
-        <div className="flex gap-4">
-          <Button
-            type="submit"
-            className="flex-1 bg-gray-900 text-white py-3 rounded-xl font-bold hover:bg-black transition"
-          >
-            更新を保存
-          </Button>
-          <Link
-            href="/admin/mobilon-bands"
-            className="flex-1 bg-gray-100 text-gray-600 py-3 rounded-xl font-bold text-center hover:bg-gray-200 transition"
-          >
-            キャンセル
-          </Link>
-        </div>
+        <Button type="submit" className="w-full">
+          更新を保存
+        </Button>
       </form>
     </ActionPageContainer>
   );

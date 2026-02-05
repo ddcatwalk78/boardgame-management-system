@@ -199,20 +199,9 @@ export default async function EditBoardGamePage({
           </label>
         </section>
 
-        <div className="flex gap-4 mt-8">
-          <Button
-            type="submit"
-            className="flex-1 bg-indigo-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-indigo-700 transition shadow-lg"
-          >
-            更新する
-          </Button>
-          <Link
-            href="/admin/games"
-            className="flex-1 bg-gray-100 text-gray-600 font-bold py-3 px-4 rounded-lg hover:bg-gray-200 transition text-center"
-          >
-            キャンセル
-          </Link>
-        </div>
+        <Button type="submit" className="w-full">
+          更新する
+        </Button>
       </form>
     </ActionPageContainer>
   );

@@ -4,7 +4,7 @@ import { useFormStatus } from "react-dom";
 import { ButtonHTMLAttributes } from "react";
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: "primary" | "secondary" | "danger" | "outline" | "ghost";
+  variant?: "primary" | "secondary" | "danger" | "outline" | "ghost" | "cancel";
   isLoading?: boolean; // 手動でローディング状態にしたい場合
 };
 
@@ -35,6 +35,7 @@ export default function Button({
     outline:
       "border border-gray-300 text-gray-700 bg-white hover:bg-gray-50 focus:ring-gray-300",
     ghost: "text-gray-600 hover:bg-gray-100 hover:text-gray-900",
+    cancel: "text-gray-600 bg-gray-100 hover:text-gray-900",
   };
 
   return (

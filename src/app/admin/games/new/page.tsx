@@ -190,10 +190,7 @@ export default async function NewBoardGamePage() {
           </label>
         </section>
 
-        <Button
-          type="submit"
-          className="w-full bg-indigo-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-indigo-700 transition shadow-lg mt-8"
-        >
+        <Button type="submit" className="w-full">
           ボードゲームを登録する
         </Button>
       </form>

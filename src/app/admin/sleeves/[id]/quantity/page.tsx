@@ -64,20 +64,9 @@ export default async function EditQuantityPage({ params }: Props) {
           />
         </div>
 
-        <div className="flex gap-2">
-          <Button
-            type="submit"
-            className="flex-1 bg-green-600 text-white py-2 rounded hover:bg-green-700 font-bold"
-          >
-            個数を更新
-          </Button>
-          <a
-            href="/admin/sleeves"
-            className="flex-1 bg-gray-200 text-gray-800 py-2 rounded text-center hover:bg-gray-300"
-          >
-            キャンセル
-          </a>
-        </div>
+        <Button type="submit" className="w-full">
+          個数を更新
+        </Button>
       </form>
     </ActionPageContainer>
   );

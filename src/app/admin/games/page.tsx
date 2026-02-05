@@ -72,7 +72,7 @@ export default async function BoardGameListPage() {
       title="ボードゲーム管理"
       action={
         <Link href="/admin/games/new">
-          <Button variant="primary">＋ 新規登録</Button>
+          <Button>＋ 新規登録</Button>
         </Link>
       }
     >

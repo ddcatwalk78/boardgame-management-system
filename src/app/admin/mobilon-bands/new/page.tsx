@@ -69,10 +69,7 @@ export default function NewMobilonBandPage() {
             className="w-full border rounded-lg p-2.5 focus:ring-2 focus:ring-pink-500 outline-none"
           />
         </div>
-        <Button
-          type="submit"
-          className="w-full bg-pink-600 text-white py-3 rounded-xl font-bold hover:bg-pink-700 transition shadow-lg shadow-pink-100"
-        >
+        <Button type="submit" className="w-full">
           バンドを登録する
         </Button>
       </form>

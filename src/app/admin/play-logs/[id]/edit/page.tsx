@@ -119,20 +119,9 @@ export default async function EditPlayLogPage({
           ></textarea>
         </div>
 
-        <div className="flex gap-4">
-          <Button
-            type="submit"
-            className="flex-1 bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700"
-          >
-            更新する
-          </Button>
-          <Link
-            href="/admin/play-logs"
-            className="flex-1 bg-gray-100 text-gray-600 py-3 rounded-lg font-bold text-center hover:bg-gray-200"
-          >
-            キャンセル
-          </Link>
-        </div>
+        <Button type="submit" className="w-full">
+          更新する
+        </Button>
       </form>
     </ActionPageContainer>
   );

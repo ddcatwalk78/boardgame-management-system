@@ -107,10 +107,7 @@ export default async function NewPlayLogPage() {
           ></textarea>
         </div>
 
-        <Button
-          type="submit"
-          className="w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700"
-        >
+        <Button type="submit" className="w-full">
           記録する
         </Button>
       </form>

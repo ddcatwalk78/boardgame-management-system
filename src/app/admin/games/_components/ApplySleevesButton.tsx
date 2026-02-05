@@ -61,7 +61,8 @@ export default function ApplySleevesButton({
 
       <Button
         type="submit"
-        className="mt-2 w-full bg-green-600 text-white text-xs font-bold py-2 rounded hover:bg-green-700 transition"
+        variant="primary"
+        className="w-full"
         onClick={(e) => {
           if (
             !confirm(

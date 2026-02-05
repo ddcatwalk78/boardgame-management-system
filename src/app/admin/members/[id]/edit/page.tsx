@@ -39,20 +39,9 @@ export default async function EditMemberPage({
           defaultValue={member.name}
           className="w-full border rounded p-2"
         />
-        <div className="flex gap-4">
-          <Button
-            type="submit"
-            className="flex-1 bg-purple-600 text-white py-2 rounded-lg font-bold"
-          >
-            更新
-          </Button>
-          <Link
-            href="/admin/members"
-            className="flex-1 bg-gray-100 text-center py-2 rounded-lg text-gray-600"
-          >
-            キャンセル
-          </Link>
-        </div>
+        <Button type="submit" className="w-full">
+          更新
+        </Button>
       </form>
     </ActionPageContainer>
   );

@@ -55,10 +55,7 @@ export default async function MobilonBandStockPage({
             className="text-6xl w-full text-center border-b-4 border-pink-500 pb-4 font-mono font-bold focus:outline-none text-gray-800"
           />
         </div>
-        <Button
-          type="submit"
-          className="w-full bg-pink-600 text-white py-4 rounded-2xl font-bold text-lg hover:bg-pink-700 transition-all active:scale-95 shadow-lg shadow-pink-200"
-        >
+        <Button type="submit" className="w-full">
           保存する
         </Button>
       </form>

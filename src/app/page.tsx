@@ -21,9 +21,7 @@ export default async function HomePage() {
               await signOut();
             }}
           >
-            <Button className="bg-red-500 text-white px-4 py-2 rounded mt-4">
-              ログアウト
-            </Button>
+            <Button variant="danger">ログアウト</Button>
           </form>
         </div>
       ) : (
@@ -35,9 +33,7 @@ export default async function HomePage() {
               await signIn("google");
             }}
           >
-            <Button className="bg-blue-500 text-white px-4 py-2 rounded mt-4">
-              Googleでログイン
-            </Button>
+            <Button>Googleでログイン</Button>
           </form>
         </div>
       )}

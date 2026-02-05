@@ -19,7 +19,7 @@ export default async function MemberListPage() {
       title="メンバー管理"
       action={
         <Link href="/admin/members/new">
-          <Button variant="primary">＋ メンバー登録</Button>
+          <Button>＋ メンバー登録</Button>
         </Link>
       }
     >

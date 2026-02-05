@@ -111,10 +111,7 @@ export default function NewWishlistPage() {
           </label>
         </div>
 
-        <Button
-          type="submit"
-          className="w-full bg-yellow-500 text-white font-bold py-3 rounded-lg hover:bg-yellow-600 transition shadow-lg shadow-yellow-100"
-        >
+        <Button type="submit" className="w-full">
           リストに追加する
         </Button>
       </form>

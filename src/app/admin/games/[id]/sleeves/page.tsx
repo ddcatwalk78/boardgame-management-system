@@ -65,7 +65,7 @@ export default async function GameSleeveConfigPage({
       title={`${game.name} の必要スリーブ`}
       action={
         <Link href="/admin/games" className="text-indigo-600 hover:underline">
-          ← ゲーム一覧に戻る
+          ← 一覧に戻る
         </Link>
       }
     >
@@ -110,10 +110,7 @@ export default async function GameSleeveConfigPage({
                   placeholder="例: 54"
                 />
               </div>
-              <Button
-                type="submit"
-                className="w-full bg-indigo-600 text-white py-2 rounded-lg font-bold hover:bg-indigo-700 transition shadow-sm"
-              >
+              <Button type="submit" className="w-full">
                 リストに追加
               </Button>
             </div>
@@ -159,7 +156,8 @@ export default async function GameSleeveConfigPage({
                         <input type="hidden" name="id" value={rs.id} />
                         <Button
                           type="submit"
-                          className="text-red-400 hover:text-red-600 text-sm font-medium transition"
+                          variant="danger"
+                          className="text-sm"
                         >
                           削除
                         </Button>

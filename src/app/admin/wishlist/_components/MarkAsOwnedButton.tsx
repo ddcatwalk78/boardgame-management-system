@@ -23,10 +23,7 @@ export default function MarkAsOwnedButton({ id, gameName, action }: Props) {
       }}
     >
       <input type="hidden" name="id" value={id} />
-      <Button
-        type="submit"
-        className="bg-yellow-400 text-yellow-900 px-4 py-2 rounded-lg text-sm font-bold hover:bg-yellow-500 transition shadow-sm flex items-center gap-1"
-      >
+      <Button type="submit">
         <span>🎁</span> 購入した！
       </Button>
     </form>

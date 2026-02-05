@@ -37,20 +37,9 @@ export default function NewMemberPage() {
             placeholder="例: 山田 太郎"
           />
         </div>
-        <div className="flex gap-4">
-          <Button
-            type="submit"
-            className="flex-1 bg-purple-600 text-white py-2 rounded-lg font-bold"
-          >
-            登録
-          </Button>
-          <Link
-            href="/admin/members"
-            className="flex-1 bg-gray-100 text-center py-2 rounded-lg text-gray-600"
-          >
-            キャンセル
-          </Link>
-        </div>
+        <Button type="submit" className="w-full">
+          登録
+        </Button>
       </form>
     </ActionPageContainer>
   );

@@ -103,7 +103,7 @@ export default async function NewSleevePage() {
         <Button
           type="submit"
           disabled={sleeveSizes.length === 0}
-          className="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 transition disabled:bg-gray-400"
+          className="w-full disabled:bg-gray-400"
         >
           製品を登録する
         </Button>

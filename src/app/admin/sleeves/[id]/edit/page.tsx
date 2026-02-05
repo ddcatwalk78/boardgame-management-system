@@ -117,10 +117,7 @@ export default async function EditSleevePage({ params }: Props) {
           />
         </div>
 
-        <Button
-          type="submit"
-          className="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition"
-        >
+        <Button type="submit" className="w-full">
           登録する
         </Button>
       </form>

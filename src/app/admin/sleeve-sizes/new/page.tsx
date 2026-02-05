@@ -81,10 +81,7 @@ export default async function NewSleeveSizePage() {
           </div>
         </div>
 
-        <Button
-          type="submit"
-          className="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 transition"
-        >
+        <Button type="submit" className="w-full">
           規格を保存する
         </Button>
       </form>

@@ -22,7 +22,7 @@ export default function DeleteSleeveSizeButton({ id, deleteAction }: Props) {
       }}
     >
       <input type="hidden" name="id" value={id} />
-      <Button type="submit" className="text-red-600 text-sm hover:underline">
+      <Button type="submit" variant="danger">
         削除
       </Button>
     </form>

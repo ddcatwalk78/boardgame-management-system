@@ -19,10 +19,7 @@ export default function DeleteSleeveButton({ id, deleteAction }: Props) {
       }}
     >
       <input type="hidden" name="id" value={id} />
-      <Button
-        type="submit"
-        className="bg-red-50 text-red-600 px-3 py-1 rounded text-sm hover:bg-red-100 border border-red-200"
-      >
+      <Button type="submit" variant="danger">
         削除
       </Button>
     </form>
